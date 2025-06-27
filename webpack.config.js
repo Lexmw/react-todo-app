@@ -37,7 +37,7 @@ export default (_env, argv) => {
     ],
     plugins: [!prod && "react-refresh/babel"].filter(Boolean)
   }
-},
+}},
         // Plain CSS
         {
           test: /\.css$/i,
