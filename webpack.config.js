@@ -2,7 +2,7 @@ import path from "node:path";
 import HtmlWebpackPlugin from "html-webpack-plugin";
 import ReactRefreshWebpackPlugin from "@pmmmwh/react-refresh-webpack-plugin";
 import Dotenv from "dotenv-webpack";
-
+import webpack from "webpack";
 
 export default (_env, argv) => {
   const prod = argv.mode === "production";
@@ -28,16 +28,17 @@ export default (_env, argv) => {
           test: /\.(js|jsx)$/,
           exclude: /node_modules/,
           use: {
-  loader: "babel-loader",
-  options: {
-    cacheDirectory: true,
-    presets: [
-      ["@babel/preset-env", { targets: "defaults" }],
-      ["@babel/preset-react", { runtime: "automatic" }]
-    ],
-    plugins: [!prod && "react-refresh/babel"].filter(Boolean)
-  }
-}},
+            loader: "babel-loader",
+            options: {
+              cacheDirectory: true,
+              presets: [
+                ["@babel/preset-env", { targets: "defaults" }],
+                ["@babel/preset-react", { runtime: "automatic" }]
+              ],
+              plugins: [!prod && "react-refresh/babel"].filter(Boolean)
+            }
+          }
+        },
         // Plain CSS
         {
           test: /\.css$/i,
@@ -58,7 +59,10 @@ export default (_env, argv) => {
     plugins: [
       new HtmlWebpackPlugin({ template: "public/index.html" }),
       !prod && new ReactRefreshWebpackPlugin(),
-      new Dotenv()
+      new Dotenv(),
+      new webpack.DefinePlugin({
+        "process.env": JSON.stringify(process.env)
+      })
     ].filter(Boolean),
     mode: prod ? "production" : "development",
     performance: { hints: false }
