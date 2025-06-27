@@ -5,6 +5,7 @@ import Dotenv from "dotenv-webpack";
 import webpack from "webpack";
 
 export default (_env, argv) => {
+  console.log("Netlify env", process.env.REACT_APP_AWS_REGION);
   const prod = argv.mode === "production";
   return {
     entry: "./src/index.jsx",
