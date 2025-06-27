@@ -1,7 +1,6 @@
 import path from "node:path";
 import HtmlWebpackPlugin from "html-webpack-plugin";
 import ReactRefreshWebpackPlugin from "@pmmmwh/react-refresh-webpack-plugin";
-import Dotenv from "dotenv-webpack";
 import webpack from "webpack";
 
 export default (_env, argv) => {
@@ -60,7 +59,6 @@ export default (_env, argv) => {
     plugins: [
       new HtmlWebpackPlugin({ template: "public/index.html" }),
       !prod && new ReactRefreshWebpackPlugin(),
-      new Dotenv(),
       new webpack.DefinePlugin({
         "process.env.NODE_ENV": JSON.stringify(process.env.NODE_ENV)
   })
