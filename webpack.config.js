@@ -2,6 +2,8 @@ import path from "node:path";
 import HtmlWebpackPlugin from "html-webpack-plugin";
 import ReactRefreshWebpackPlugin from "@pmmmwh/react-refresh-webpack-plugin";
 import webpack from "webpack";
+import Dotenv from "dotenv-webpack";
+
 
 export default (_env, argv) => {
   console.log("Netlify env", process.env.REACT_APP_AWS_REGION, process.env.REACT_APP_AWS_ACCESS_KEY_ID, process.env.REACT_APP_AWS_SECRET_ACCESS_KEY);
@@ -59,8 +61,11 @@ export default (_env, argv) => {
     plugins: [
       new HtmlWebpackPlugin({ template: "public/index.html" }),
       !prod && new ReactRefreshWebpackPlugin(),
+      !prod && new Dotenv(),
       new webpack.DefinePlugin({
-        "process.env.NODE_ENV": JSON.stringify(process.env.NODE_ENV)
+        "process.env.REACT_APP_AWS_REGION": JSON.stringify(process.env.REACT_APP_AWS_REGION),
+        "process.env.REACT_APP_AWS_ACCESS_KEY_ID": JSON.stringify(process.env.REACT_APP_AWS_ACCESS_KEY_ID),
+        "process.env.REACT_APP_AWS_SECRET_ACCESS_KEY": JSON.stringify(process.env.REACT_APP_AWS_SECRET_ACCESS_KEY),
   })
     ].filter(Boolean),
     mode: prod ? "production" : "development",
