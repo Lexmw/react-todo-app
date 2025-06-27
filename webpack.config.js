@@ -62,8 +62,7 @@ export default (_env, argv) => {
       !prod && new ReactRefreshWebpackPlugin(),
       new Dotenv(),
       new webpack.DefinePlugin({
-    "process.env.MY_API_KEY": JSON.stringify(process.env.MY_API_KEY),
-    "process.env.NODE_ENV": JSON.stringify(process.env.NODE_ENV)
+        "process.env.NODE_ENV": JSON.stringify(process.env.NODE_ENV)
   })
     ].filter(Boolean),
     mode: prod ? "production" : "development",
