@@ -28,13 +28,16 @@ export default (_env, argv) => {
           test: /\.(js|jsx)$/,
           exclude: /node_modules/,
           use: {
-            loader: "babel-loader",
-            options: {
-              cacheDirectory: true,
-              plugins: [!prod && "react-refresh/babel"].filter(Boolean)
-            }
-          }
-        },
+  loader: "babel-loader",
+  options: {
+    cacheDirectory: true,
+    presets: [
+      ["@babel/preset-env", { targets: "defaults" }],
+      ["@babel/preset-react", { runtime: "automatic" }]
+    ],
+    plugins: [!prod && "react-refresh/babel"].filter(Boolean)
+  }
+},
         // Plain CSS
         {
           test: /\.css$/i,
